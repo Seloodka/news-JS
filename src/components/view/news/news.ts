@@ -1,5 +1,6 @@
 import type { Article } from '../../types/news-api/endpoints/everything/response';
 import type { INews } from '../../types/view/news';
+import newsPlaceholderImage from '../../../assets/news_placeholder.jpg';
 import './news.css';
 
 class News implements INews {
@@ -19,7 +20,7 @@ class News implements INews {
             if (idx % 2) newsClone.querySelector('.news__item')!.classList.add('alt');
 
             newsClone.querySelector<HTMLDivElement>('.news__meta-photo')!.style.backgroundImage = `url(${
-                item.urlToImage || 'img/news_placeholder.jpg'
+                item.urlToImage || newsPlaceholderImage
             })`;
             newsClone.querySelector<HTMLLIElement>('.news__meta-author')!.textContent = item.author || item.source.name;
             newsClone.querySelector<HTMLLIElement>('.news__meta-date')!.textContent = item.publishedAt
