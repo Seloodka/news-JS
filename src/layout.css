@@ -1,0 +1,21 @@
+.page-wrapper {
+    display: flex;
+    max-width: 100svw;
+    flex-flow: column nowrap;
+    margin: 0;
+    padding: 10px 30px;
+
+    @media (max-width: 425px) {
+        padding: 5px 10px;
+    }
+}
+
+.page-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+    }
+}

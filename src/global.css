@@ -4,13 +4,13 @@ body {
     font-family: sans-serif;
 }
 
-header {
-    padding: 10px 30px;
-}
-
 header h1 {
     font-size: 40px;
     font-weight: 800;
+
+    @media (max-width: 1200px) {
+        text-align: center;
+    }
 }
 
 footer {
@@ -18,18 +18,34 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column-reverse;
+    gap: 30px;
+    padding: 60px 0;
 }
 footer .copyright {
     font-size: 14px;
-    color: #333;
+    color: #555;
     text-align: center;
 }
 footer .copyright a {
-    color: #444;
+    color: #777;
 }
 footer .copyright a:hover {
-    color: #555;
+    color: #70d6ff;
 }
 footer .copyright:before {
     content: '©';
+}
+footer .footer-nav__list {
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    list-style: none;
+}
+footer .footer-nav__lis > li {
+    max-height: 25px;
+}
+footer .footer-nav__list a > svg {
+    max-height: 72px;
+    width: 100%;
 }
