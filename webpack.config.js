@@ -18,6 +18,13 @@ const baseConfig = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+            {
+                test: /\.(png|jpe?g|gif|webp|)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/[name].[contenthash][ext]',
+                },
+            },
         ],
     },
     resolve: {
