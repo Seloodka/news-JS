@@ -1,27 +1,32 @@
+import type { IAppController } from '../types/controller/controller';
+import type { GenericCallback } from '../types/controller/controller-global-types';
+import { ApiEndpoints } from '../types/news-api/endpoints/endpoints';
+import type { EverythingEndpointResponse } from '../types/news-api/endpoints/everything/response';
+import type { SourceEndpointResponse } from '../types/news-api/endpoints/sources/response';
 import AppLoader from './appLoader';
 
-class AppController extends AppLoader {
-    getSources(callback) {
+class AppController extends AppLoader implements IAppController {
+    public getSources(callback: GenericCallback<SourceEndpointResponse>): void {
         super.getResp(
             {
-                endpoint: 'sources',
+                endpoint: ApiEndpoints.SOURCES,
             },
             callback
         );
     }
 
-    getNews(e, callback) {
-        let target = e.target;
-        const newsContainer = e.currentTarget;
+    public getNews(e: Event, callback: GenericCallback<EverythingEndpointResponse>): void {
+        let target = e.target! as HTMLElement;
+        const newsContainer = e.currentTarget! as HTMLDivElement;
 
         while (target !== newsContainer) {
             if (target.classList.contains('source__item')) {
-                const sourceId = target.getAttribute('data-source-id');
+                const sourceId = target.getAttribute('data-source-id')!;
                 if (newsContainer.getAttribute('data-source') !== sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
                     super.getResp(
                         {
-                            endpoint: 'everything',
+                            endpoint: ApiEndpoints.EVERYTHING,
                             options: {
                                 sources: sourceId,
                             },
@@ -31,7 +36,7 @@ class AppController extends AppLoader {
                 }
                 return;
             }
-            target = target.parentNode;
+            target = target.parentNode! as HTMLElement;
         }
     }
 }
