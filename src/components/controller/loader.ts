@@ -14,7 +14,7 @@ class Loader implements ILoader {
     public getResp<T>(
         { endpoint, options = {} }: RequestData,
         callback: GenericCallback<T> = () => {
-            console.error('No callback for GET response');
+            throw Error('No callback for GET response');
         }
     ): void {
         this.load('GET', endpoint, callback, options);
@@ -23,7 +23,7 @@ class Loader implements ILoader {
     public errorHandler(res: Response): Response {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
-                console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
+                throw Error(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
 
@@ -51,7 +51,9 @@ class Loader implements ILoader {
             .then(this.errorHandler)
             .then((res: Response): Promise<T> => res.json())
             .then((data: T) => callback(data))
-            .catch((err: Error) => console.error(err));
+            .catch((err: Error) => {
+                throw err;
+            });
     }
 }
 
